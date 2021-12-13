@@ -18,6 +18,8 @@ searchInputEl.addEventListener('blur', function () {
 
 
 const badgeEl = document.querySelector('header .badges');
+const toTopEl = document.querySelector('#to-top');
+
 //window는 브라우저의 모든 기능들을 담고 있다.
 //lodash 라이브러리 기능 중 throttle의 기능을 통해서 스크롤을 할때 리소스를 줄여줄 수 있다.
 window.addEventListener('scroll', _.throttle(function () {
@@ -30,6 +32,10 @@ window.addEventListener('scroll', _.throttle(function () {
             opacity: 0,
             display: 'none'
         });
+        // 버튼 보이기!
+        gsap.to(toTopEl, .2, {
+            x: 0
+        });
     } else {
         // 배지 보이기
         // badgeEl.style.display = 'block';
@@ -37,9 +43,20 @@ window.addEventListener('scroll', _.throttle(function () {
             opacity: 1,
             display: 'block'
         });
+        //버튼 숨기기!
+        gsap.to(toTopEl, .2, {
+            x: 100
+        });
     }
 }, 300));
 // _.throttle(함수, 시간)
+
+
+toTopEl.addEventListener('click', function () {
+    gsap.to(window, .7, {
+        scrollTo: 0
+    });
+});
 
 
 const fadeEls = document.querySelectorAll('.visual .fade-in');
